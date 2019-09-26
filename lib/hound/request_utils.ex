@@ -24,6 +24,8 @@ defmodule Hound.RequestUtils do
   end
 
   defp send_req(type, path, params, options) do
+    IO.inspect binding()
+    IO.puts Jason.encode!(params)
     url = get_url(path)
     has_body = params != %{} && type == :post
     {headers, body} = cond do
