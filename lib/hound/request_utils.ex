@@ -25,7 +25,6 @@ defmodule Hound.RequestUtils do
 
   defp send_req(type, path, params, options) do
     IO.inspect binding()
-    IO.puts Jason.encode!(params)
     url = get_url(path)
     has_body = params != %{} && type == :post
     {headers, body} = cond do
@@ -42,6 +41,7 @@ defmodule Hound.RequestUtils do
   end
 
   defp handle_response({:ok, code, headers, body}, {url, path, type}, options) do
+    IO.inspect binding()
     case Hound.ResponseParser.parse(response_parser(), path, code, headers, body) do
       :error ->
         raise """
